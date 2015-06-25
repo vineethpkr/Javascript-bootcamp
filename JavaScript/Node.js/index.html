@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; text-decoration: none;  }
+      body { font: 13px Helvetica, Arial; }
+      form { border: 0;padding: 3px; position: relative; }
+      form input.hover { border: 0; padding-bottom:10px;padding-right:13px;  position: relative;}
+      form button { width: 9%;border: none; padding: 10px; }
+      form a { text-decoration: none; font-size: 20px ; display: none; position: relative;}
+      /*#match{display:" inline-block";};*/
+     
+      .boxq{
+    height:50px;
+    width: 70px;
+    display: inline-block ;
+    text-align: center;
+    background-color: grey; 
+    font-family: Helvetica;
+    font-size: 30px;
+     //position: relative;
+};
+.reset{
+    height:50px;
+    width: 120px;
+    background-color: yellow;
+    font-family: Helvetica;
+    font-size: 50px;
+    position: relative;
+    padding-left: 40px;
+};
+    </style>
+  </head>
+  
+  <body onload = "fill();">
+    <form action="#">
+      Name:  <input type = "text" name = "name"><br><br>
+      RoomID:<input type = "text" name = "roomId" id="roomId"><br><br>
+      <button type="button" onclick = "roomCheck(roomId)" >Submit</button>
+      <a onclick = "presstart();" id = "start">Start Game</a>
+    </form>
+    <div id="match">
+       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="styles.css"> -->
+    <div>
+        <p>O won <span id="ocount"> ocount </span> times</p>
+        <p>X won <span id="xcount"> xcount </span> times</p>
+    </div>
+    <div id = "col">
+        <ul id ="col-row">
+            <li id="one" class="boxq" onClick = "check();">+</li>
+            <li id="two" class="boxq" onClick = "check();">+</li>
+            <li id="three" class="boxq" onClick = "check();">+</li>
+           
+        </ul>
+        <ul>
+            <li id="four" class="boxq" onClick = "check();">+</li>
+            <li id="five" class="boxq" onClick = "check();">+</li>
+            <li id="six" class="boxq" onClick = "check();">+</li>
+        </ul>
+        <ul>
+            <li id="seven" class="boxq" onClick = "check();">+</li>
+            <li id="eight" class="boxq" onClick = "check();">+</li>
+            <li id="nine" class="boxq" onClick = "check();">+</li>
+        </ul>
+    </div>
+    <div id="reset">
+            <button type="reset" onClick = "reset();"> RESET </button>
+    </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+   /* socket.on('chatmessage',function(msg){
+      console.log("From Client side Test"+ msg);
+      socket.emit('update',msg);
+      });
+    */
+var xoro = 'x';
+var arr={};
+var ocount=0;
+var xcount=0;
+var winner;
+
+var fill=function()
+{
+
+  document.getElementById("ocount").innerHTML=ocount;
+  document.getElementById("xcount").innerHTML=xcount;
+}
+var reset=function()
+{
+
+
+  if(
+  document.getElementById("one").innerHTML!='+'||
+  document.getElementById("two").innerHTML!='+'||
+  document.getElementById("three").innerHTML!='+'||
+  document.getElementById("four").innerHTML!='+'||
+  document.getElementById("five").innerHTML!='+'||
+  document.getElementById("six").innerHTML!='+'||
+  document.getElementById("seven").innerHTML!='+'||
+  document.getElementById("eight").innerHTML!='+'||
+  document.getElementById("nine").innerHTML!='+')
+  {
+    document.getElementById("one").innerHTML='+';
+  document.getElementById("two").innerHTML='+';
+  document.getElementById("three").innerHTML='+';
+  document.getElementById("four").innerHTML='+';
+  document.getElementById("five").innerHTML='+';
+  document.getElementById("six").innerHTML='+';
+  document.getElementById("seven").innerHTML='+';
+  document.getElementById("eight").innerHTML='+';
+  document.getElementById("nine").innerHTML='+';
+    socket.emit('reset');
+    arr={};
+    fill();
+  }  
+  
+  
+
+  
+
+}
+var checkwin=function(xoro)
+{
+  console.log(arr);
+  for(var i=0;i<9;i++)
+  {
+      if(arr["one"]==xoro && arr["two"]==xoro && arr["three"]==xoro ||
+        arr["four"]==xoro && arr["five"]==xoro && arr["six"]==xoro ||
+        arr["seven"]==xoro && arr["eight"]==xoro && arr["nine"]==xoro ||
+        arr["one"]==xoro && arr["five"]==xoro && arr["nine"]==xoro ||
+        arr["three"]==xoro && arr["five"]==xoro && arr["seven"]==xoro||
+        arr["one"]==xoro && arr["four"]==xoro && arr["seven"]==xoro ||
+        arr["two"]==xoro && arr["five"]==xoro && arr["eight"]==xoro ||
+        arr["three"]==xoro && arr["six"]==xoro && arr["nine"]==xoro)
+        
+        {
+            alert(xoro.toUpperCase()+"WINS");
+              if(xoro=='o')
+                {
+                  ocount+=1;
+                  
+                }
+              else
+                {
+                  xcount+=1;
+                  
+                }
+                return xoro;
+             
+        }
+
+  }
+  
+
+}
+var check=function()
+{
+    if(winner == 'o' || winner == 'x')
+      return;
+    
+    else{ 
+
+        if(document.getElementById(event.target.id).innerHTML == 'x' || document.getElementById(event.target.id).innerHTML == 'o')
+        
+        {
+          alert("Choose some other!");
+        }
+
+        else
+
+        {
+              
+
+                  console.log(event.target.id);
+                  // console.log("count"+ count );
+                  //alert(xoro);
+
+                  /*var b = document.createElement('button');
+              b.setAttribute('content', 'test content');
+              b.setAttribute('class', 'btn');
+              b.innerHTML = xoro;
+
+              var wrapper = document.getElementById(event.target.id);
+              wrapper.appendChild(b);*/
+              console.log(document.getElementById(event.target.id).innerHTML);
+              document.getElementById(event.target.id).innerHTML=xoro;
+
+              socket.emit('match',{pos:event.target.id, player:xoro });
+
+              arr[event.target.id]=xoro;
+              winner=checkwin(xoro);
+              if(winner=='o' || winner=='x')
+                socket.emit('winner',xoro);
+              
+            }
+
+        
+
+}
+ }
+
+
+
+
+
+
+
+
+    console.log("reached head");
+    function check2player()
+       {
+          console.log("reached check2");
+          socket.emit("check2player",{roomId: document.getElementById("roomId").value});
+          
+       }
+       // function presstart()
+       // {
+       //    document.getElementById("match").style.display = "";
+       // }
+       function alterstart()
+       {
+          document.getElementById("start").style.display = "block";
+       }
+      function roomCheck(roomId)
+       {
+         console.log("Hgellp oanas");
+         console.log(this.socket.id);
+         console.log(document.getElementById("roomId").value);
+         socket.emit("roomcheck",{roomId: document.getElementById("roomId").value , socketId: this.socket.id});
+         check2player();
+         console.log("Finished roomcheck");
+       }
+       socket.on('startgame',function(){
+          console.log("Entering startgame function");
+          alterstart();
+          // socket.broadcast.to(document.getElementById("roomId").value).emit('startanother',{sid: this.socket.id });
+         socket.emit('startanother',{roomId: document.getElementById("roomId").value });
+       });
+        socket.on('game',function(){
+          console.log("Entering startgame function");
+          // window.location = 'http://127.0.0.1/xampp/TicTacToe/';
+          // socket.broadcast.to(document.getElementById("roomId").value).emit('startanother',{sid: this.socket.id });
+         // socket.emit('startanother',{sid: this.socket.id });
+       });
+        socket.on('move',function(msg){
+            console.log("entered move");
+            console.log(msg);
+            console.log(msg.count);
+            document.getElementById(msg.content1.pos).innerHTML = msg.content1.player;
+              if(msg.count%2==1)
+                xoro='o';
+              else
+                xoro='x';
+
+
+        });
+        socket.on('over',function(msg){
+          console.log(msg);
+          alert(msg+"WINS");
+        });
+        socket.on('again',function(msg){
+
+          console.log("again");
+            msg=0;
+            reset();
+
+        });
+        
+        
+
+       console.log("reached end");
+    
+  </script>
+  </body>
+
+  
+</html>
