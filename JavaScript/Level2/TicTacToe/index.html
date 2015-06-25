@@ -2,36 +2,42 @@
 <html>
     <head>
 	   <title>Tic Tac Toe Game </title>
+	   <h1 style="color:#F5DEB3;text-align:center;margin-bottom:0px;">Tic Tac Toe</h1>
     </head>
     
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="styles.css">
 <body onload = "fill();">
-    <div>
-        <p>O won <span id="ocount"> ocount </span> times</p>
-        <p>X won <span id="xcount"> xcount </span> times</p>
-    </div>
-    <div id = "col">
-        <ul id ="col-row">
-            <li id="one" class="boxq" onClick = "check();">+</li>
-            <li id="two" class="boxq" onClick = "check();">+</li>
-            <li id="three" class="boxq" onClick = "check();">+</li>
-           
-        </ul>
-        <ul>
-            <li id="four" class="boxq" onClick = "check();">+</li>
-            <li id="five" class="boxq" onClick = "check();">+</li>
-            <li id="six" class="boxq" onClick = "check();">+</li>
-        </ul>
-        <ul>
-            <li id="seven" class="boxq" onClick = "check();">+</li>
-            <li id="eight" class="boxq" onClick = "check();">+</li>
-            <li id="nine" class="boxq" onClick = "check();">+</li>
-        </ul>
-    </div>
-    <div id="reset">
-            <button type="reset" onClick = "reset();"> RESET </button>
-    </div>
+	<div class=".container-fluid">
+		<div class="row">
+			<div class="col-sm-3">
+    			<div style="float:left;margin-left:30px;margin-top:50px;">
+        			<p><img src="./download (1).jpeg" style="height:50px; width:50px;"> won <span id="ocount" style="color:medium blue;font-size:20px;margin-left:5px;">ocount</span></p>
+        			<p><img src="./download.jpeg" style="height:50px; width:50px;">won <span id="xcount" style="color:pink;font-size:20px;margin-left:5px;">xcount</span></p>
+    			</div>
+    		</div>
+  			<div class="col-sm-9">	  		
+    			<div id = "col" style="margin-left:70px;margin-top:20px">
+        			<ul id ="col-row">
+        			    <li id="one" class="boxq" onClick = "check();">+</li>
+            			<li id="two" class="boxq" onClick = "check();">+</li>
+           				<li id="three" class="boxq" onClick = "check();">+</li>
+        			</ul>
+       				 <ul>
+            			<li id="four" class="boxq" onClick = "check();">+</li>
+            			<li id="five" class="boxq" onClick = "check();">+</li>
+            			<li id="six" class="boxq" onClick = "check();">+</li>
+        			</ul>
+        			<ul>
+            			<li id="seven" class="boxq" onClick = "check();">+</li>
+           				<li id="eight" class="boxq" onClick = "check();">+</li>
+            			<li id="nine" class="boxq" onClick = "check();">+</li>
+        			</ul>
+    			</div>
+    			<div>
+            		<button type="reset" onClick = "reset();" style="background-color:azure;margin-left:20px;margin-top:10px;"><span class="reset-button" style="background-color:azure;"> RESET </span></button>
+    			</div>
+    		</div>
+    	<script src="main.js" defer></script>
 </body>
-    <script src="main.js" defer></script>
 </html>

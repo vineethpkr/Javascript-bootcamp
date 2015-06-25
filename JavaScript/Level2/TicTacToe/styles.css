@@ -1,19 +1,26 @@
+*{
+	background-color: #20B2AA;
+/* 	background-image: url("Beach.jpg"); */
+	
+}
 .boxq{
-    height:50px;
-    width: 70px;
+    height:78px;
+    margin-left:5px;
+    width: 101px;
     display: inline-block ;
     text-align: center;
-    background-color: grey; 
+    background-color: grey;
+    color:#F5DEB3;
     font-family: Helvetica;
     font-size: 30px;
-     //position: relative;
 };
-.reset{
-    height:50px;
-    width: 120px;
-    background-color: yellow;
-    font-family: Helvetica;
-    font-size: 50px;
-    position: relative;
-    padding-left: 40px;
+/* 
+.reset1{
+  background-color: azure;
+  margin-left: 50px;
+  margin-top: 20px;
 };
+.reset-button{
+      background-color: azure;
+};
+ */

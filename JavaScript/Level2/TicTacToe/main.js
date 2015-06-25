@@ -25,6 +25,8 @@ var reset=function()
 	document.getElementById("nine").innerHTML='+';	
 
 	fill();
+	arr={};
+	winner='';
 
 }
 var checkwin=function(xoro)
